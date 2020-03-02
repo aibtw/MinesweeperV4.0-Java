@@ -1,0 +1,18 @@
+board class:
+	will be passed two integers r and c to method setDim
+	method build will build a String array of x rows and columns, such that each cell contains "0" or "-" according to a condition, also passed in,
+ the method returns the array. build both of the boards inside the class as instance variables.
+	method generateBombs will take in a nubmer of bombs, and generates random [r,c] according to that number.
+	method placeBombs will replace each "0" with "*".
+	method updateCell will take in a value v, row r, col c, then replace each [r,c] in the board with value v.
+	method updateNum will go over the board, if it finds bomb, go to each cell in upper, current, and lower rows, as long as these cells are not bombs, then make int var, 
+equal to the string in the cell, increase +1 to the var, convert it to string, replace old value with new value useing updateCell().
+	
+
+	method makeMove takes in r,c and goes to the same place in the board (The hid board with "0" initial values) and check if it is a bomb: lose(), else: goes to 
+shown board (different object with "-" initial value) and stores that val, then call update cell for the shown board object. then if it is == 0, call checkZeros.
+	
+	method checkZeros will take in an r,c. call revealZeros. make infinite loop, copy the known board into temp var, go 
+through all the values in known board. if you find any zeros, call revealZeros. stop(return) only if the copied board = known baord (that is, no more zeros to reveal).
+
+	method revealZeros goes into hid board, check reveals all the cells around it[top, current, low] rows in the shown board. 
