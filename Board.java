@@ -8,7 +8,7 @@ public class Board
 	private int c;
 	private String board[][];
 	private Random rnd = new Random();
-	private int bombsNum = 9;
+	private int bombsNum = 2;
 	
 	public Board (int r, int c)
 	{
@@ -31,6 +31,10 @@ public class Board
 		}
 	}
 	
+	public String getValues(int r,int c) {
+		return board[r][c];
+	}
+	
 	public void genBombs() 
 	{
 		int placedB = 0;
@@ -46,16 +50,27 @@ public class Board
 		}
 	}
 	
-	public void printBoard()
+	public void printBoard() // this looks scary but it is just printing and nothing important
 	{
 		for(int i = 0; i<r; i++)
 		{
 			for (int j = 0; j<c; j++)
 			{
-				System.out.print(board[i][j] + "\t");
+				int k = i;
+				while(k<c & i==0 & j==0) {
+					System.out.print("\t" + (k+1));
+					k++;
+					if (k == r+1)
+						System.out.printf("%n%n%n");
+					
+				}
+				if(j==0)
+					System.out.print(i+1);
+				System.out.print("\t" + board[i][j]);
 			}
 			System.out.println();
 		}
+		System.out.println("\n\n\n");
 	}
 
 	public void updateCell(int r, int c, String v)
