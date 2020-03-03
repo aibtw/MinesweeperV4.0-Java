@@ -24,7 +24,7 @@ public class GameManager {
 		hidBoard.build(1);
 		hidBoard.genBombs();
 		hidBoard.updateNum();
-		hidBoard.printBoard();
+//		hidBoard.printBoard();
 		
 		this.board = new Board(r, c);
 		board.build(2);
