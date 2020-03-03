@@ -6,7 +6,7 @@ public class Main {
 	{
 		Scanner input = new Scanner(System.in);
 		GameManager gM = new GameManager();
-		gM.startGame(3,4);
+		gM.startGame(8,9);
 		
 	}
 }
