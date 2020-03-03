@@ -39,13 +39,6 @@ public class GameManager {
 	}
 	
 	public void setDifficulty() {
-//		System.out.print("Enter easy, medium, or hard:\n");
-//		String def = input.nextLine().toLowerCase();
-//		if (def.equals("easy") == false)
-//		{
-//				System.out.println("easy");
-//		}
-//		
 		// should return the difficulty here, doing it later.
 	}
 	
