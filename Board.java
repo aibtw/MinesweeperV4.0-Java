@@ -8,7 +8,7 @@ public class Board
 	private int c;
 	private String board[][];
 	private Random rnd = new Random();
-	private int bombsNum = 2;
+	private int bombsNum = 10;
 	
 	public Board (int r, int c)
 	{
@@ -158,6 +158,17 @@ public class Board
 		}
 	}
 	
+	public String[][] getCopy(){
+		String[][] temp = board;
+		return temp;
+	}
+	
+	public boolean compare(String[][] temp) {
+		if(temp.equals(board) == true) {
+			return true;
+		}
+		return false;
+	}
 }
 
 	

@@ -7,6 +7,8 @@ public class GameManager {
 	private int r;
 	private int c;
 	private boolean loop = true;
+	private boolean lose = false;
+	private boolean win = false;
 	Board hidBoard;
 	Board board;
 	Scanner input = new Scanner(System.in);
@@ -22,16 +24,17 @@ public class GameManager {
 		hidBoard.build(1);
 		hidBoard.genBombs();
 		hidBoard.updateNum();
-//		hidBoard.printBoard();
+		hidBoard.printBoard();
 		
 		this.board = new Board(r, c);
 		board.build(2);
 		// before this print we must have dialog for difficulty
 		board.printBoard();
-		while(true) {
+		while(loop = true) {
 			userIn();
-//			hidBoard.printBoard();
 			board.printBoard();
+			if(loop == false)
+				break;
 		}
 	}
 	
@@ -78,10 +81,118 @@ public class GameManager {
 		
 		String val = hidBoard.getValues(r, c);
 		board.updateCell(r, c, val);
+		if (val.equals("*")) {
+			loop = false;
+			System.out.printf("%n%n%n-------You Lost-------%n%n");
+		}
+		else {
+			checkZeros(val);
+			winCheck();
+		}
 	}
 	
 	public void addFlag(int r, int c) 
 	{
 		board.updateCell(r-1, c-1, "F");
+	}
+
+	public void checkZeros(String val) 
+	{
+		if (val.equals("0")) 
+		{
+			while(true) 
+			{
+				String[][] temp = board.getCopy();
+				for(int i = 0; i<r; i++)
+				{
+					for(int j = 0; j<c; j++)
+					{
+						if(board.getValues(i, j).equals("0"))
+						{
+							updateZeros(i,j);
+						}
+					}
+				}
+				if(board.compare(temp)== true) 
+				{
+					break;
+				}
+
+			}
+
+		}
+	}
+
+	public void updateZeros(int i, int j) {
+		// upper row
+		if(i-1>=0) 
+		{
+			if(j-1>=0)
+			{
+				if(hidBoard.getValues(i-1, j-1).equals("*") == false)
+					board.updateCell(i-1, j-1, hidBoard.getValues(i-1, j-1));
+			}
+			if(hidBoard.getValues(i-1, j).equals("*") == false)
+				board.updateCell(i-1, j, hidBoard.getValues(i-1, j));
+			
+			if(j+1 < c)
+			{
+				if(hidBoard.getValues(i-1, j+1).equals("*") == false)
+					board.updateCell(i-1, j+1, hidBoard.getValues(i-1, j+1));
+			}
+		}
+		// same row
+		if(j-1>=0)
+		{
+			if(hidBoard.getValues(i, j-1).equals("*") == false)
+				board.updateCell(i, j-1, hidBoard.getValues(i, j-1));
+		}
+		
+		if(j+1 < c)
+		{
+			if(hidBoard.getValues(i, j+1).equals("*") == false)
+				board.updateCell(i, j+1, hidBoard.getValues(i, j+1));
+		}
+		// bottom row
+		if(i+1<r) 
+		{
+			if(j-1>=0)
+			{
+				if(hidBoard.getValues(i+1, j-1).equals("*") == false)
+					board.updateCell(i+1, j-1, hidBoard.getValues(i+1, j-1));
+			}
+			if(hidBoard.getValues(i+1, j).equals("*") == false)
+				board.updateCell(i+1, j, hidBoard.getValues(i+1, j));
+			
+			if(j+1 < c)
+			{
+				if(hidBoard.getValues(i+1, j+1).equals("*") == false)
+					board.updateCell(i+1, j+1, hidBoard.getValues(i+1, j+1));
+			}
+		}
+
+	}
+	
+	public void winCheck() 
+	{
+		int dim = r*c;
+		for(int i = 0; i<r; i++)
+		{
+			for(int j = 0; j<c; j++)
+			{
+				String a = board.getValues(i, j);
+				String b = hidBoard.getValues(i, j);
+				if(b.equals(a)) {
+					dim -= 1;
+				}
+				if(b.equals("*")) {
+					dim -= 1;
+				}
+			}
+		}
+		if (dim == 0) {
+			System.out.printf("%n%n%n-------You Win--------%n%n");
+			loop = false;
+		}
 	}
 }
